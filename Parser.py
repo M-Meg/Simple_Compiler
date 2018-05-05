@@ -1,6 +1,7 @@
 import Tokenizer
 import re
 import sys
+import time
 
 
 IDs = list()

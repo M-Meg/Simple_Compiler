@@ -1,6 +1,7 @@
 import sys
 import os
 import Parser
+import time
 
 
 def main():
@@ -14,10 +15,14 @@ def main():
 		exit(0)
 
 	with open(filename) as f:
-		with open(filename+"_output", "w") as o:
-			o.write(Parser.parse(f))
+		with open(filename+"_output.asm", "w") as o:
+			start = time.time()
+			asm = Parser.parse(f)
+			comp_time = time.time() - start
+			o.write(asm)
 			o.close()
 		f.close()
+	print("Compilation time: %s seconds" % comp_time)
 
 if __name__ == "__main__":
 	main()
