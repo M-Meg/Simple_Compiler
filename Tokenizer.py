@@ -17,15 +17,15 @@ def tokenizer(line):
 
 	elif(re.match(r'(?i)END', line)):
 		token = re.match(r'(?i)END(.*)', line)
-		return 4
+		return (4,)
 
 	elif(re.match(r'(?i)END.', line)):
 		token = re.match(r'(?i)END.(.*)', line)
-		return 5
+		return 5,
 
-	elif(re.match(r'(?i)FOR.', line)):
+	elif(re.match(r'(?i)FOR', line)):
 		token = re.match(r'(?i)FOR(.*)', line)
-		return 6
+		return 6,
 
 	elif(re.match(r'(?i)READ', line)):
 		token = re.match(r'(?i)READ(.*)', line)
@@ -78,7 +78,7 @@ def tokenizer(line):
 
 def program(lines):
 
-	token = re.match(r'(?i)PROGRAM(.*)(?i)VAR(.*)(?i)BEGIN(.*)END.', lines)
+	token = re.match(r'(?i)PROGRAM(.*)(?i)VAR(.*?)(?i)BEGIN(.*)END.', lines)
 	return token.group(1), token.group(2), token.group(3)
 
 

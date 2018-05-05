@@ -1,0 +1,10 @@
+PROgram SAVEN
+VAR a,b , sum, v
+BEGIN
+FOR i := 1 to 100 DO
+BEGIN 
+READ(V);
+a:= a + b; 
+END;
+WRITE(sum);a := b + 2
+END.

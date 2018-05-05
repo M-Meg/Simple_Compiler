@@ -29,6 +29,8 @@ def parse(fl):
 
 
 def var(var):
+	
+	# print(var)
 	global IDs
 	var = var.split(",")
 	s = ""
@@ -44,21 +46,27 @@ def var(var):
 
 
 def statments(stmts):
-	# print(stmts)
+
+	# print("Stmt_list: " + stmts)
 	if(";" in stmts):	
 		var = re.match(r'(.*?);(.*)', stmts)
+		if(Tokenizer.tokenizer(var.group(1))[0] == 6):
+			fv = re.match(r'(?i)FOR(.*)DO(.*?)END;(.*)', stmts)
+			return for_stmt(fv.group(1), fv.group(2)) + statments(fv.group(3))
+
 		if(var.group(2)):
 			return statments(var.group(1)) + statments(var.group(2))
+
 		else:
 			return statment(var.group(1))
+
 	else:
 		return statment(stmts)
-	# print(var.group(2))
 
 
 def statment(stmt):
 
-	token = Tokenizer.tokenizer(stmt)
+	token = Tokenizer.tokenizer(stmt.strip())
 	# print(token)
 	if(token):
 		if(token[0] == 7):
@@ -69,9 +77,29 @@ def statment(stmt):
 
 		elif(token[0] == 12):
 			return assign(token[1:])
+
 	else:
 		print("Syntax Error: " + stmt)
 		exit(0)
+
+
+def for_stmt(cond, body):
+
+	cond = re.match(r'(.*):=(.*)(?i)TO(.*)', cond)
+
+	t = re.match(r'(?i)BEGIN(.*)', body.strip())
+
+	try:
+		if(t.group(1)):
+			# print("BEG: " + t.group(1))
+			r = statments(t.group(1).strip())
+	except AttributeError:
+		r = statments(body.strip())
+			
+	return "\n" + cond.group(1).strip() + "\tLDX\t" + factor(cond.group(2).strip()) \
+	+"\n" + cond.group(1).strip() + "LOOP" + r[1:] \
+	+"\n \tTIX\t" + factor(cond.group(3).strip()) \
+	+"\n \tJLT\t" + cond.group(1).strip() + "LOOP"
 
 
 def read(id):
@@ -103,6 +131,10 @@ def factor(f):
 
 	if(id(f)):
 		return f
+	
+	elif(f.isnumeric()):
+		return "#" + f
+
 	else:
 		return exp(f)
 
@@ -175,6 +207,9 @@ def getA(a):
 	ra = a
 	return "\n \tLDA\t" + a
 
+
+# IDs = ["i"]
+# print(statments("FOR i := 1 to 100 DO BEGIN READ(V);a:= a + b; END;WRITE(sum);a := b + 2"))
 
 
 # PROGRAM 1
