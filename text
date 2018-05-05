@@ -1,0 +1,9 @@
+PROgram SAVEN
+VAR a,b , sum, mula, res
+BEGIN
+REaD(a, b);
+sum := a + b;
+mula := a*b;
+res := sum + mula;
+WRITE(sum, mula, res);
+END.

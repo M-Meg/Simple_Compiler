@@ -1,0 +1,25 @@
+SAVEN	START	0
+ 	EXTREF	XREAD, XWRITE
+a	RESW	1
+b	RESW	1
+sum	RESW	1
+mula	RESW	1
+res	RESW	1
+ 	+JSUB	XREAD
+ 	WORD	2
+ 	WORD	a
+ 	WORD	b
+ 	LDA	a
+ 	ADD	b
+ 	STA	sum
+ 	LDA	a
+ 	MUL	b
+ 	STA	mula
+ 	LDA	sum
+ 	ADD	mula
+ 	STA	res
+ 	+JSUB	XWRITE
+ 	WORD	3
+ 	WORD	sum
+ 	WORD	mula
+ 	WORD	res
