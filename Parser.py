@@ -25,7 +25,7 @@ def parse(fl):
 
 	header += var(id_list)
 
-	return header + statments(stmt_list)
+	return header + statments(stmt_list) + "\n\tEND\t0000"
 
 
 def var(var):
@@ -142,6 +142,7 @@ def factor(f):
 def exp(e):
 
 	t = Tokenizer.tokenizer(e)
+	print(t)
 	if(t):
 		if(t[0] == 18):
 			return mul(factor(t[1].strip()), factor(t[2].strip()))
@@ -208,7 +209,7 @@ def getA(a):
 	return "\n \tLDA\t" + a
 
 
-# IDs = ["i"]
+# IDs = ["a", "b", "c"]
 # print(statments("FOR i := 1 to 100 DO BEGIN READ(V);a:= a + b; END;WRITE(sum);a := b + 2"))
 
 

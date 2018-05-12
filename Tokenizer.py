@@ -51,7 +51,7 @@ def tokenizer(line):
 		token = re.match(r'(.*):=(.*)', line)
 		return 12, token.group(1), token.group(2)
 
-	elif(re.match(r'(.*)\*(.*)', line)):
+	elif(re.match(r'(.*?)\*(.*)', line)):
 		token = re.match(r'(.*)\*(.*)', line)
 		return 18, token.group(1), token.group(2)
 
@@ -71,7 +71,7 @@ def tokenizer(line):
 		token = re.match(r'(?i)id', line)
 		return 17
 
-	elif(re.match(r'(.*)\+(.*)', line)):
+	elif(re.match(r'(.*?)\+(.*)', line)):
 		token = re.match(r'(.*)\+(.*)', line)
 		return 13, token.group(1), token.group(2)
 
@@ -80,6 +80,12 @@ def program(lines):
 
 	token = re.match(r'(?i)PROGRAM(.*)(?i)VAR(.*?)(?i)BEGIN(.*)END.', lines)
 	return token.group(1), token.group(2), token.group(3)
+
+
+def factor(f):
+
+	t = re.search(r'([a-zA-Z0-9 ]*)$', f)
+	return t.group().strip()
 
 
 # PROGRAM 1

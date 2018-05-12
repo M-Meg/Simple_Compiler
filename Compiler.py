@@ -2,6 +2,7 @@ import sys
 import os
 import Parser
 import time
+import Assembler
 
 
 def main():
@@ -23,6 +24,8 @@ def main():
 			o.close()
 		f.close()
 	print("Compilation time: %s seconds" % comp_time)
+
+	Assembler.sic_assembler(filename+"_output.asm")
 
 if __name__ == "__main__":
 	main()
